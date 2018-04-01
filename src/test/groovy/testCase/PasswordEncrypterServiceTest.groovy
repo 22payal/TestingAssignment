@@ -1,22 +1,24 @@
 package testCase
 
 import Source.PasswordEncrypterService
+import Source.User
 import spock.lang.Specification
 
 class PasswordEncrypterServiceTest extends Specification {
 
     def "to test whether the password is propely encrypted"()
     {
-            PasswordEncrypterService passwordEncrypterService = new PasswordEncrypterService()
-
-           String pwd1 = "payal"
+           String password = "payal"
 
           when:
 
-          String encryptedPassword1 = passwordEncrypterService.encrypt(pwd1)
+          PasswordEncrypterService passwordEncrypterService = new PasswordEncrypterService()
+          String encryptedPassword1 = passwordEncrypterService.encrypt(password)
 
           then:
-          encryptedPassword1.size()==8
+          def decoded = new String(encryptedPassword1.decodeBase64())
+          password==decoded
+         
+    }
+    }
 
-    }
-    }

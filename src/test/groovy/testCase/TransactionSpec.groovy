@@ -44,16 +44,15 @@ class TransactionSpec extends Specification {
 
     }
 
-    def "cancel method"() {
+    def " to test cancel method"() {
         given:
 
-        Product product = new Product(name: 'p1', price: 100)
-        User user = new User(isPrivellegedCustomer: true)
+        Product product = new Product(name: 'p1', price: 200)
+        User user = new User(isPrivellegedCustomer: true,balance: 800)
         Transaction transaction = new Transaction()
 
         transaction.calculateDiscount(product, user)
-        def emailService = Mock(EmailService)
-        transaction.emailService = emailService
+        user.cancelPurchase(product)
 
         when:
         transaction.cancelSale(product, user)
